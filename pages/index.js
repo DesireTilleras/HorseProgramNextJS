@@ -1,21 +1,17 @@
 import styles from "../styles/Home.module.css";
-import { ButtonLabel, StyledButton } from "../components/StyledButton.style";
-import { StyledCard, StyledGrid } from "../components/StyledCard.style";
+import { ButtonLabel, StyledButton } from "../components/Styled/StyledButton.style";
+import { StyledCard, StyledGrid } from "../components/Styled/StyledCard.style";
+import {Card} from '../components/Card'
 
 export default function Home({ data }) {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>Stall Lilledal!</h1>
-        <StyledButton>
-          <ButtonLabel>Hej KNAPP</ButtonLabel>
-        </StyledButton>
         <StyledGrid>
           {data.map((horse) => {
             return (
-              <StyledCard>
-                <p key={horse._key}>{horse.name}</p>
-              </StyledCard>
+              <Card key={horse._key} item={horse.name}/>
             );
           })}
         </StyledGrid>
