@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "arangojs": "^7.6.1",
+    "classnames": "^2.3.1"
+  }
+}
