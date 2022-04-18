@@ -11,6 +11,11 @@ export const StyledCard = styled.div`
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
+  cursor: pointer;
+
+  &.isChosen{
+    background-color: pink;
+  }
 
   &:hover,:active,:focus {
     border: 1px solid blue;
