@@ -1,24 +1,19 @@
 import styles from "../styles/Home.module.css";
-
 import { CostInput } from "../components/CostInput";
-
-import {Button} from '../components/Button'
-
-
-import { Router, useRouter } from "next/router";
-
+import { Button } from "../components/Button";
+import { useRouter } from "next/router";
 
 export default function Home({ horses }) {
-const router = useRouter()
+  const router = useRouter();
 
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>Stall Lilledal!</h1>
         <CostInput data={horses} />
-
-          <button onClick = {() =>router.push("/costInformation")}>See cost history</button>
-
+        <div style={{marginTop:"20px"}}>
+          <Button type="button" value="See all costs" onclick={() => router.push("/costInformation")}/>
+        </div>
       </main>
 
       <footer className={styles.footer}></footer>

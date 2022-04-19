@@ -96,7 +96,7 @@ export const CostInput = ({ data }) => {
         </StyledDatePicker>
 
         {/* <button type="submit">Register</button> */}
-        <Button type="submit" value="Register" />
+        <Button type="submit" value="Register"/>
       </form>
     </StyledCostInput>
   );

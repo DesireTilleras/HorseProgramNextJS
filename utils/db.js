@@ -106,16 +106,10 @@ async function createCost(collection, newCost) {
   console.log(title);
   var c = await db.query({
     query: `
-    UPSERT {
-      costTitle: @costTitle,
-    }
     INSERT {
       costTitle: @costTitle,
       cost: @cost,
       date: @date,
-    }
-    UPDATE {
-      costTitle: @costTitle,
     }
     IN costs
     RETURN NEW
