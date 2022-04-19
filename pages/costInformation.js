@@ -5,17 +5,23 @@ import { useTable, useSortBy } from "react-table";
 import { StyledTable } from "../components/Styled/StyledTable";
 
 export default function Home({ allCosts }) {
-  const data = React.useMemo(
-    () =>
-      allCosts.map((costInfo) => {      
+
+  const data = React.useMemo(    
+    () => allCosts &&
+      allCosts.map((costInfo) => {     
+        
+        const horseName = costInfo.horse.name;
+        const costTitle = costInfo.cost.costTitle;
+        const amount = costInfo.cost.cost;
+        const date = costInfo.cost.date;
         return {          
-          horse: <label>{costInfo.horse.name}</label>,
-          cost: <label>{costInfo.cost.costTitle}</label>,
-          amount: <label>{costInfo.cost.cost}</label>,
-          date: <label>{costInfo.cost.date}</label>,
+          horse: horseName,
+          cost: costTitle,
+          amount: amount,
+          date: date,
         };
       }),
-    []
+    [allCosts]
   );
   const columns = React.useMemo(
     () => [
@@ -49,21 +55,18 @@ export default function Home({ allCosts }) {
       <StyledTable>
         <table {...getTableProps()} className="table-wrapper">
           <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
+            {headerGroups.map((headerGroup, index) => (
+              <tr key={index} {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column, index) => (
                   <th
+                    key={index}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                    key={column.index}
+                    onClick={() => column.toggleSortBy(!column.isSortedDesc)}
                     className="table-columns"
                   >
                     {column.render("Header")}
                     <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? " 🔽"
-                          : " 🔼"
-                        : ""}
+                      {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ("")}
                     </span>
                   </th>
                 ))}
@@ -71,15 +74,15 @@ export default function Home({ allCosts }) {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
+            {rows.map((row, index) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
+                <tr key={index} {...row.getRowProps()}>
+                  {row.cells.map((cell, index) => {
                     return (
                       <td
+                        key={index}
                         {...cell.getCellProps()}
-                        key={cell.index}
                         className="table-rows"
                       >
                         {cell.render("Cell")}
