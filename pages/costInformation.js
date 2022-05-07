@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
-import { getAllCostsForFarm } from "../utils/db_costs";
 import { useTable, useSortBy } from "react-table";
 import { StyledTable } from "../components/Styled/StyledTable";
 
@@ -100,7 +99,9 @@ export default function Home({ allCosts }) {
 }
 
 export async function getServerSideProps() {
-  const allCosts = await getAllCostsForFarm("Lilledal");
+  // Fetch data from external API
+  const res = await fetch(`http://localhost:3000/api/getCosts`);
+  const allCosts = await res.json();
 
   // Pass data to the page via props
   return { props: { allCosts } };
