@@ -9,9 +9,12 @@
   },
   "dependencies": {
     "arangojs": "^7.7.0",
-    "next": "12.0.7",
+    "next": "^12.1.5",
     "react": "17.0.2",
+    "react-date-picker": "^8.4.0",
     "react-dom": "17.0.2",
+    "react-table": "^7.7.0",
+    "sassy-datepicker": "^0.8.0",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {

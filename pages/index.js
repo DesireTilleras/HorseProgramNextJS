@@ -1,20 +1,19 @@
 import styles from "../styles/Home.module.css";
-import { ButtonLabel, StyledButton } from "../components/Styled/StyledButton.style";
-import { StyledCard, StyledGrid } from "../components/Styled/StyledCard.style";
-import {Card} from '../components/Card'
+import { CostInput } from "../components/CostInput";
+import { Button } from "../components/Button";
+import { useRouter } from "next/router";
 
-export default function Home({ data }) {
+export default function Home({ horses }) {
+  const router = useRouter();
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>Stall Lilledal!</h1>
-        <StyledGrid>
-          {data.map((horse) => {
-            return (
-              <Card key={horse._key} item={horse.name}/>
-            );
-          })}
-        </StyledGrid>
+        <CostInput data={horses} />
+        <div style={{marginTop:"20px"}}>
+          <Button type="button" value="See all costs" onclick={() => router.push("/costInformation")}/>
+        </div>
       </main>
 
       <footer className={styles.footer}></footer>
@@ -25,8 +24,8 @@ export default function Home({ data }) {
 export async function getServerSideProps() {
   // Fetch data from external API
   const res = await fetch(`http://localhost:3000/api/createDB`);
-  const data = await res.json();
+  const horses = await res.json();
 
   // Pass data to the page via props
-  return { props: { data } };
+  return { props: { horses } };
 }
