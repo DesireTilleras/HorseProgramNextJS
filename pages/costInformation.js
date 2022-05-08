@@ -1,22 +1,68 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
-import { useTable, useSortBy } from "react-table";
-import { StyledTable } from "../components/Styled/StyledTable";
+import { Table } from "../components/Table";
+import { StyledCostInformation } from "../styles/StyledCostInformation";
 
 export default function Home({ allCosts }) {
+  let arrayOfYears = [];
 
-  const data = React.useMemo(    
-    () => allCosts &&
-      allCosts.map((costInfo) => {     
-        
+  const getTotaltCost = () => {
+    let total = 0;
+
+    allCosts &&
+      allCosts.map((costInfo) => {
+        total += Number(costInfo.cost.cost);
+      });
+
+    return total.toLocaleString();
+  };
+
+  const getAllTheYears = () => {
+    const result = [
+      ...new Set(
+        allCosts.map((event) => new Date(event.cost.date).getFullYear())
+      ),
+    ];
+
+    return result;
+  };
+
+  const getCosts = () => {
+    getAllTheYears() &&
+      getAllTheYears().map((year) => {
+        arrayOfYears.push({ year: year, total: getTheCostForYear(year) });
+      });
+
+    console.log(arrayOfYears);
+  };
+
+  const getTheCostForYear = (year) => {
+    let total = 0;
+    console.log(year);
+    allCosts &&
+      allCosts.map((costInfo) => {
+        costInfo.cost.date.startsWith(year)
+          ? (total += Number(costInfo.cost.cost))
+          : "";
+      });
+    return total.toLocaleString();
+  };
+
+  console.log(getAllTheYears());
+  getCosts();
+
+  const data = React.useMemo(
+    () =>
+      allCosts &&
+      allCosts.map((costInfo) => {
         const horseName = costInfo.horse.name;
         const costTitle = costInfo.cost.costTitle;
-        const amount = costInfo.cost.cost;
+        const amount = Number(costInfo.cost.cost);
         const date = costInfo.cost.date;
-        return {          
+        return {
           horse: horseName,
           cost: costTitle,
-          amount: amount,
+          amount: amount.toLocaleString(),
           date: date,
         };
       }),
@@ -40,61 +86,37 @@ export default function Home({ allCosts }) {
         Header: "Date",
         accessor: "date",
       },
-      
     ],
     []
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data }, useSortBy);
+  const costData = React.useMemo(
+    () => [
+      {
+        total: getTotaltCost(),
+      },
+    ],
+    []
+  );
+  const costColumns = React.useMemo(
+    () => [
+      {
+        Header: "Total",
+        accessor: "total", // accessor is the "key" in the data
+      },
+    ],
+    []
+  );
 
-  console.log(allCosts);
   return (
-    <div>
-      <StyledTable>
-        <table {...getTableProps()} className="table-wrapper">
-          <thead>
-            {headerGroups.map((headerGroup, index) => (
-              <tr key={index} {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column, index) => (
-                  <th
-                    key={index}
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    onClick={() => column.toggleSortBy(!column.isSortedDesc)}
-                    className="table-columns"
-                  >
-                    {column.render("Header")}
-                    <span>
-                      {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ("")}
-                    </span>
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row, index) => {
-              prepareRow(row);
-              return (
-                <tr key={index} {...row.getRowProps()}>
-                  {row.cells.map((cell, index) => {
-                    return (
-                      <td
-                        key={index}
-                        {...cell.getCellProps()}
-                        className="table-rows"
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </StyledTable>
-    </div>
+    <StyledCostInformation>
+      <div className="table-wrapper">
+        <Table data={costData} columns={costColumns} />
+      </div>
+      <div className="table-wrapper">
+        <Table data={data} columns={columns} />
+      </div>
+    </StyledCostInformation>
   );
 }
 
