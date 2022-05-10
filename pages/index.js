@@ -2,17 +2,26 @@ import styles from "../styles/Home.module.css";
 import { CostInput } from "../components/CostInput";
 import { Button } from "../components/Button";
 import { useRouter } from "next/router";
+import { Weather } from "../components/Weather";
+import axios from "axios";
 
-export default function Home({ horses }) {
+export default function Home({ horses, allData }) {
   const router = useRouter();
+
+  console.log(allData);
 
   return (
     <div className={styles.container}>
       <main className={styles.main}>
+        <Weather />
         <h1 className={styles.title}>Stall Lilledal!</h1>
         <CostInput data={horses} />
-        <div style={{marginTop:"20px"}}>
-          <Button type="button" value="See all costs" onclick={() => router.push("/costInformation")}/>
+        <div style={{ marginTop: "20px" }}>
+          <Button
+            type="button"
+            value="See all costs"
+            onclick={() => router.push("/costInformation")}
+          />
         </div>
       </main>
 
@@ -21,11 +30,21 @@ export default function Home({ horses }) {
   );
 }
 
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const res = await fetch(`http://localhost:3000/api/createDB`);
-  const horses = await res.json();
+export async function getServerSideProps({ req, res }) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+
+  const result = await fetch(`http://localhost:3000/api/createDB`);
+  const horses = await result.json();
+
+  const all = await fetch(
+    `https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/16.158/lat/58.5812/data.json`
+  ).catch(console.error());
+  const allData = await all.json();
+
+  const obj = allData.timeSeries[0].parameters.find(name => name.name === 'Wsymb2');
+
+  console.log(obj.values);
 
   // Pass data to the page via props
-  return { props: { horses } };
+  return { props: { horses, allData } };
 }
