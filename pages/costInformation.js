@@ -57,12 +57,12 @@ export default function Home({ allCosts }) {
       allCosts.map((costInfo) => {
         const horseName = costInfo.horse.name;
         const costTitle = costInfo.cost.costTitle;
-        const amount = Number(costInfo.cost.cost);
+        const amount = Number(costInfo.cost.cost).toLocaleString();
         const date = costInfo.cost.date;
         return {
           horse: horseName,
           cost: costTitle,
-          amount: amount.toLocaleString(),
+          amount: amount,
           date: date,
         };
       }),
@@ -121,7 +121,7 @@ export default function Home({ allCosts }) {
 }
 
 export async function getServerSideProps() {
-  // Fetch data from external API
+
   const res = await fetch(`http://localhost:3000/api/getCosts`);
   const allCosts = await res.json();
 
