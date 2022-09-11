@@ -1,10 +1,14 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
 import { Table } from "../components/Table";
+import {Button} from "../components/Button"
 import { StyledCostInformation } from "../styles/StyledCostInformation";
+import { useRouter } from "next/router";
+
 
 export default function Home({ allCosts }) {
   let arrayOfYears = [];
+    const router = useRouter();
 
   const getTotaltCost = () => {
     let total = 0;
@@ -33,12 +37,12 @@ export default function Home({ allCosts }) {
         arrayOfYears.push({ year: year, total: getTheCostForYear(year) });
       });
 
-    console.log(arrayOfYears);
+ 
   };
 
   const getTheCostForYear = (year) => {
     let total = 0;
-    console.log(year);
+
     allCosts &&
       allCosts.map((costInfo) => {
         costInfo.cost.date.startsWith(year)
@@ -48,7 +52,7 @@ export default function Home({ allCosts }) {
     return total.toLocaleString();
   };
 
-  console.log(getAllTheYears());
+
   getCosts();
 
   const data = React.useMemo(
@@ -110,6 +114,13 @@ export default function Home({ allCosts }) {
 
   return (
     <StyledCostInformation>
+      <div>
+        <Button
+          type="button"
+          value="Go back to front page"
+          onclick={() => router.push("/")}
+        ></Button>
+      </div>
       <div className="table-wrapper">
         <Table data={costData} columns={costColumns} />
       </div>

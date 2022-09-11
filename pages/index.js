@@ -9,10 +9,16 @@ export default function Home({ horses, weatherData }) {
   let time = new Date();
   let prognosis = getWeather().parameters[18].values[0]
 
+
+
   function getWeather(){    
     for(let i = 0; i < weatherData.timeSeries.length; i ++ ){
-      const data = weatherData.timeSeries[i].validTime.split("T")[1].startsWith(time.getHours());
-      if (data) return weatherData.timeSeries[i];          
+      let currentTime;
+      if(Number(time.getHours())<10){
+        currentTime = "0"+String(time.getHours());      
+      }
+      const data = weatherData.timeSeries[i].validTime.split("T")[1].startsWith(currentTime);
+      if (data) return weatherData.timeSeries[i];       
     }
   }
     

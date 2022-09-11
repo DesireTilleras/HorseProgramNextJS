@@ -40,7 +40,6 @@ async function saveCollection(collection, data) {
     try {
       await collection.save(data[i]);
     } catch (e) {
-      console.log(e);
     }
   }
 }
@@ -63,13 +62,13 @@ async function createHorses(collection) {
   const data = [
     { _key: "horse1", name: "Lufsen" },
     { _key: "horse2", name: "Aprilia" },
+    {_key: "horse3", name: "Foal"},
     { _key: "stable", name: "Stable" },
   ];
   await saveCollection(collection, data);
 }
 
 export const createEdge = async (from, to, edge_type) => {
-  console.log("hej");
   const db = getConnection();
   const e = await getEdge(edge_type, db);
   var edge = await db.query({
@@ -97,13 +96,11 @@ export const createEdge = async (from, to, edge_type) => {
 };
 
 async function createCost(collection, newCost) {
-  console.log("create new cost", { newCost });
-  const db = getConnection();
+   const db = getConnection();
   const title = newCost.costTitle;
   const cost = newCost.cost;
   const date = newCost.itemDate;
   const item = newCost.itemId;
-  console.log(title);
   var c = await db.query({
     query: `
     INSERT {
