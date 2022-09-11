@@ -117,6 +117,9 @@ export default function Home({ allCosts }) {
       {
         total: getTotaltCost(),
         horse1: getTotaltCostHorse("Leia"),
+        horse2: getTotaltCostHorse("Lufsen"),
+        horse3: getTotaltCostHorse("Aprilia"),
+        horse4: getTotaltCostHorse("Foal"),
       },
     ],
     []
@@ -128,8 +131,20 @@ export default function Home({ allCosts }) {
         accessor: "total", // accessor is the "key" in the data
       },
       {
-        Header: "Horse",
-        accessor: "horse", // accessor is the "key" in the data
+        Header: "Leia",
+        accessor: "horse1", // accessor is the "key" in the data
+      },
+      {
+        Header: "Lufsen",
+        accessor: "horse2", // accessor is the "key" in the data
+      },
+      {
+        Header: "Aprilia",
+        accessor: "horse3", // accessor is the "key" in the data
+      },
+      {
+        Header: "Foal",
+        accessor: "horse4", // accessor is the "key" in the data
       },
     ],
     []

@@ -17,6 +17,9 @@ export default function Home({ horses, weatherData }) {
       if(Number(time.getHours())<10){
         currentTime = "0"+String(time.getHours());      
       }
+      else{
+        currentTime = time.getHours();
+      }
       const data = weatherData.timeSeries[i].validTime.split("T")[1].startsWith(currentTime);
       if (data) return weatherData.timeSeries[i];       
     }
