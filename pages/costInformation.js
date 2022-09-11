@@ -21,6 +21,24 @@ export default function Home({ allCosts }) {
     return total.toLocaleString();
   };
 
+    const getTotaltCostHorse = (horseName) => {
+      let total = 0;
+      let horse = horseName
+
+      console.log(horse);
+      let costsOnHorse;
+
+      costsOnHorse = allCosts.filter((costs) => costs.horse.name == horse);
+
+
+      costsOnHorse &&
+        costsOnHorse.map((costInfo) => {
+            total += Number(costInfo.cost.cost);
+        });
+
+      return total.toLocaleString();
+    };
+
   const getAllTheYears = () => {
     const result = [
       ...new Set(
@@ -61,7 +79,7 @@ export default function Home({ allCosts }) {
       allCosts.map((costInfo) => {
         const horseName = costInfo.horse.name;
         const costTitle = costInfo.cost.costTitle;
-        const amount = Number(costInfo.cost.cost).toLocaleString();
+        const amount = Number(costInfo.cost.cost);
         const date = costInfo.cost.date;
         return {
           horse: horseName,
@@ -98,6 +116,7 @@ export default function Home({ allCosts }) {
     () => [
       {
         total: getTotaltCost(),
+        horse1: getTotaltCostHorse("Leia"),
       },
     ],
     []
@@ -107,6 +126,10 @@ export default function Home({ allCosts }) {
       {
         Header: "Total",
         accessor: "total", // accessor is the "key" in the data
+      },
+      {
+        Header: "Horse",
+        accessor: "horse", // accessor is the "key" in the data
       },
     ],
     []

@@ -62,7 +62,8 @@ async function createHorses(collection) {
   const data = [
     { _key: "horse1", name: "Lufsen" },
     { _key: "horse2", name: "Aprilia" },
-    {_key: "horse3", name: "Foal"},
+    { _key: "horse3", name: "Foal" },
+    { _key: "horse4", name: "Leia" },
     { _key: "stable", name: "Stable" },
   ];
   await saveCollection(collection, data);
