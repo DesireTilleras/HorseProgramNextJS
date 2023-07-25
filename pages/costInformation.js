@@ -131,19 +131,19 @@ export default function Home({ allCosts }) {
         accessor: "total", // accessor is the "key" in the data
       },
       {
-        Header: "Leia",
+        Header: "Lufsen",
         accessor: "horse1", // accessor is the "key" in the data
       },
       {
-        Header: "Lufsen",
+        Header: "Aprilia",
         accessor: "horse2", // accessor is the "key" in the data
       },
       {
-        Header: "Aprilia",
+        Header: "Petit Choux",
         accessor: "horse3", // accessor is the "key" in the data
       },
       {
-        Header: "Foal",
+        Header: "Leia",
         accessor: "horse4", // accessor is the "key" in the data
       },
     ],
