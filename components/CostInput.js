@@ -5,13 +5,16 @@ import { Button } from "./Button";
 
 export const CostInput = ({ data }) => {
   const onSubmitForm = async (event) => {
-    await registerCost(event).then(clearInputs(event));
+    await registerCost(event).then(clearInputs(event)).then(popUp("Kostnad registrerad!"));
   };
   const clearInputs = (event) => {
     event.preventDefault();
     event.target.reset();
   };
 
+  const popUp = (value) =>{
+    alert(value);
+  };
   const registerCost = async (event) => {
     event.preventDefault();
 
@@ -96,7 +99,7 @@ export const CostInput = ({ data }) => {
         </StyledDatePicker>
 
         {/* <button type="submit">Register</button> */}
-        <Button type="submit" value="Register"/>
+        <Button type="submit" value="Register" />
       </form>
     </StyledCostInput>
   );

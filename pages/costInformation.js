@@ -53,9 +53,7 @@ export default function Home({ allCosts }) {
     getAllTheYears() &&
       getAllTheYears().map((year) => {
         arrayOfYears.push({ year: year, total: getTheCostForYear(year) });
-      });
-
- 
+      }); 
   };
 
   const getTheCostForYear = (year) => {
@@ -116,10 +114,10 @@ export default function Home({ allCosts }) {
     () => [
       {
         total: getTotaltCost(),
-        horse1: getTotaltCostHorse("Leia"),
-        horse2: getTotaltCostHorse("Lufsen"),
-        horse3: getTotaltCostHorse("Aprilia"),
-        horse4: getTotaltCostHorse("Foal"),
+        horse1: getTotaltCostHorse("Lufsen"),
+        horse2: getTotaltCostHorse("Aprilia"),
+        horse3: getTotaltCostHorse("Petit Choux"),
+        horse4: getTotaltCostHorse("Leia"),
       },
     ],
     []
